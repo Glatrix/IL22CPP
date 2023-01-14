@@ -1,13 +1,15 @@
 #pragma once
 #include "pch.h"
 
-namespace Il2cpp{
 
+
+namespace Il2cpp{
 	HMODULE GameAsm = LoadLibraryA("GameAssembly.dll");
 
 	#define API_FUNC(rt, n, p) \
-	typedef rt (__cdecl* n##_t) p; \
-	n##_t n = (n##_t)GetProcAddress(GameAsm, #n);
+	namespace _decls { typedef rt (__cdecl* n##_t) p; } \
+	static _decls::n##_t n = (_decls::n##_t)GetProcAddress(GameAsm, #n);
+
 	API_FUNC(void, il2cpp_init, (intptr_t domain_name));
 	API_FUNC(void, il2cpp_init_utf16, (intptr_t domain_name));
 	API_FUNC(void, il2cpp_shutdown, ());
