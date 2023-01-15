@@ -12,7 +12,7 @@ namespace Il2cpp {
         HMODULE GameAssembly = LoadLibraryA("GameAssembly.dll");
         #define API_FUNC(r, n, p) n = (r (*) p)(GetProcAddress(GameAssembly, #n))
         #include "Il2cppFunctions.h"
-        #undef DO_API
+        #undef API_FUNC
     }
 }
 
